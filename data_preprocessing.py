@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.preprocessing import LabelEncoder
 import time
 
 
@@ -63,5 +64,13 @@ for i in df.index:
 
 
 print(df)
+### Use label encoding for StockCode and CustomerID
+le = LabelEncoder()
+df["StockCode"]  = le.fit_transform(df.StockCode.values)
+df["CustomerID"]  = le.fit_transform(df.CustomerID.values)
+#############################
+
+df.to_csv("database.csv",header = True,index = False) #Contains the Unit Price. 
+
 df = df.drop("UnitPrice",axis = 1)
 df.to_csv("processed.csv",header = True,index = False)

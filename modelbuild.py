@@ -12,11 +12,6 @@ df = pd.read_csv("processed.csv")
 X = df.iloc[:,:-1].values
 y = df.iloc[:,3].values
 
-#label encoding
-labelencoder = LabelEncoder()
-X[:,2] = labelencoder.fit_transform(X[:,2])
-X[:,0] = labelencoder.fit_transform(X[:,0])
-
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size = 0.2,random_state = 10)
 
 
