@@ -20,11 +20,11 @@ class engine:
              2) Max discounted price (quoted price should not be less than max discount price)
              3) MRP
         """
-
+        breakpoint()
         discount = self.model.predict(np.array([[StockCode,Quantity,CustomerID]]))
         
         #calculate mrp
-        df = pd.read_csv("database.csv")
+        df = pd.read_csv("/home/shreyas/Documents/Code/Bargaining-Bot/model/database.csv")
         mrp = max(df[df.StockCode == StockCode].UnitPrice.unique())
         discounted_price = (1-(discount/100))*mrp
 
@@ -42,7 +42,7 @@ class engine:
     def get_products(self):
         """ Returns random Products brought before by the Customer. """
 
-        df = pd.read_csv("database.csv")
+        df = pd.read_csv("/home/shreyas/Documents/Code/Bargaining-Bot/model/database.csv")
         df = df[df.CustomerID == self.CustomerID] #Returns the rows with Product ID
         df = df.drop_duplicates(subset = ["StockCode"]) #Hence We can return 5 distinct productIds
         randoms = df.sample(4)

@@ -28,28 +28,28 @@ if __name__ == '__main__':
     ])
     list_t.train(["Yes", "Great, that works!"])
     list_t.train(["No", "Let me see what I can do"])
-    list_t.train(["ask for offer", "Give me a quote price"])
-    list_t.train(["finish chat", "I dont think this negotiation is going anywhere, bye"])
+    list_t.train(["ask for offer", "Give me a quote price: "])
+    list_t.train(["finish", "I dont think this negotiation is going anywhere, bye"])
     list_t.train(["end chat", "Glad we could agree!\nBye!"])
-    list_t.train(["offer", "Here is my offer for you"])
-    list_t.train(["choose", "Do you accept this offer? (yes/no)"])
+    list_t.train(["offer", "Here is my offer for you: "])
+    list_t.train(["choose", "Do you accept this offer? (yes/no): "])
     flag = 1
     counter_offer_counter = 0
     products = engine_obj.get_products()
     print("Here are the products I have\n", products)
-    interested_product = input("Enter the product name of the interested product")
+    interested_product = input("Enter the product name of the interested product: ")
     interested_product = products[interested_product]
-    ans = input("The price of the product is: ", interested_product[1], "Is this fine?(yes/no)")
+    ans = input("The price of the product is: "+str(interested_product[1])+" Is this fine?(yes/no)")
     if(ans=="yes"):
         flag = 0
         print("Thanks!")
         exit()
     else:
         while flag:
-            quote = int(input(bot.get_response("ask for offer")))
+            quote = float(input(bot.get_response("ask for offer")))
             counter = engine_obj.get_counter_offer(quote, interested_product[0], 1, 1780)
             if(counter==-1 or counter_offer_counter>10):
-                print(bot.get_response("finish chat"))
+                print(bot.get_response("finish"))
                 exit()
             else:
                 print(bot.get_response("offer"),": ",counter)
