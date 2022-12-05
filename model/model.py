@@ -2,6 +2,7 @@ import pickle
 import pdb
 import numpy as np
 import pandas as pd
+import random
 
 class engine:
 
@@ -10,8 +11,28 @@ class engine:
         self.CustomerID = CustomerID
         self.product_names = ["T-Shirt","Jeans","Socks","Sweater"]
 
-    def _generate_offer(self,quoted_price,discounted_price,mrp):
-        return (quoted_price + discounted_price)/2;
+    def _get_price(self,discount,mrp):
+        return (1-(discount/100))*mrp
+
+    def _generate_offer(self,quoted_price,discount,mrp):
+
+       
+        discount_25 = 0.25*discount
+        discount_50 = 0.5*discount 
+        discount_75 = 0.75*discount 
+        discount_100 = discount
+
+        if(quoted_price < self._get_price(discount_100,mrp)):
+            return mrp
+        elif(quoted_price < self._get_price(discount_75,mrp)):
+            return random.randrange(quoted_price,self._get_price(discount_75,mrp))
+        elif(quoted_price < self._get_price(discount_50,mrp)):
+            return random.randrange(quoted_price,self._get_price(discount_50,mrp))
+
+        elif(quoted_price < self._get_price(discount_25,mrp)):
+            return random.randrange(quoted_price,self._get_price(discount_25,mrp))
+        else:
+            return quoted_price
 
 
     def get_counter_offer(self,quoted_price,StockCode,Quantity,CustomerID):
@@ -21,19 +42,17 @@ class engine:
              3) MRP
         """
         breakpoint()
-        discount = self.model.predict(np.array([[StockCode,Quantity,CustomerID]]))
-        
+        discount = self.model.predict(np.array([[StockCode,Quantity,CustomerID]]))[0]
         #calculate mrp
         df = pd.read_csv("/home/shreyas/Documents/Code/Bargaining-Bot/model/database.csv")
         mrp = max(df[df.StockCode == StockCode].UnitPrice.unique())
-        discounted_price = (1-(discount/100))*mrp
 
         
-        if(quoted_price<=discounted_price):
-            return -1;
+        if(int(discount) == 0):
+            return mrp
        
         else:
-            return self._generate_offer(quoted_price,discounted_price,mrp)
+            return self._generate_offer(quoted_price,discount,mrp)
             
 
 
