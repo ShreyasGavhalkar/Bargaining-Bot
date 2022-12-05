@@ -60,6 +60,7 @@ class engine:
 
 
 
-
+a = engine(1780)
+a.get_products()
 
 
