@@ -23,7 +23,7 @@ class engine:
         discount_100 = discount
 
         if(quoted_price < self._get_price(discount_100,mrp)):
-            return mrp
+            return self._get_price(discount_100,mrp)
         elif(quoted_price < self._get_price(discount_75,mrp)):
             return random.randrange(quoted_price,self._get_price(discount_75,mrp))
         elif(quoted_price < self._get_price(discount_50,mrp)):
