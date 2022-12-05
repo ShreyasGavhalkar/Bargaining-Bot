@@ -63,6 +63,3 @@ class engine:
 
 
 
-a = engine(17850)
-res = a.get_products()
-print(res)
