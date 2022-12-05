@@ -41,8 +41,8 @@ class engine:
     
     def get_products(self):
         """ Returns random Products brought before by the Customer. """
-        breakpoint()
-        df = pd.read_csv("processed.csv")
+
+        df = pd.read_csv("database.csv")
         df = df[df.CustomerID == self.CustomerID] #Returns the rows with Product ID
         df = df.drop_duplicates(subset = ["StockCode"]) #Hence We can return 5 distinct productIds
         randoms = df.sample(4)
@@ -59,10 +59,7 @@ class engine:
         return result_set;
 
 
-                
 
 
-if __name__ == "__main__":
-    a = engine(17850)
-    res = a.get_products()
-    print(res)
+
+
