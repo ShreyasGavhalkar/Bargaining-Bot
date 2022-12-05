@@ -51,8 +51,9 @@ class engine:
 
         i = 0;
 
+        newdf = pd.read_csv("home/shreyas/Documents/Code/Bargaining-Bot/model/database.csv")
         for r in randoms.index:
-            mrp = max(df[df.StockCode == randoms["StockCode"][r]].UnitPrice.unique())
+            mrp = max(newdf[newdf.StockCode == randoms["StockCode"][r]].UnitPrice.unique())
             result_set[self.product_names[i]] = [randoms["StockCode"][r],mrp]
             i+=1
 
