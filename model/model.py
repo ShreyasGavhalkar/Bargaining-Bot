@@ -6,7 +6,7 @@ import pandas as pd
 class engine:
 
     def __init__(self,CustomerID):
-        self.model = pickle.load(open("model.pkl","rb"))
+        self.model = pickle.load(open("/home/shreyas/Documents/Code/Bargaining-Bot/model/model.pkl","rb"))
         self.CustomerID = CustomerID
         self.product_names = ["T-Shirt","Jeans","Socks","Sweater"]
 
@@ -51,7 +51,7 @@ class engine:
 
         i = 0;
 
-        newdf = pd.read_csv("home/shreyas/Documents/Code/Bargaining-Bot/model/database.csv")
+        newdf = pd.read_csv("/home/shreyas/Documents/Code/Bargaining-Bot/model/database.csv")
         for r in randoms.index:
             mrp = max(newdf[newdf.StockCode == randoms["StockCode"][r]].UnitPrice.unique())
             result_set[self.product_names[i]] = [randoms["StockCode"][r],mrp]
